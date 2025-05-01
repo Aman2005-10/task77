@@ -1,7 +1,7 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -11,12 +11,15 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI);
 
-import authRoutes from './routes/auth.js';
-import projectRoutes from './routes/projects.js';
-import taskRoutes from './routes/tasks.js';
+// import routes
+const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/projects');
+const taskRoutes = require('./routes/tasks');
 
+// use routes
 app.use('/auth', authRoutes);
 app.use('/projects', projectRoutes);
 app.use('/tasks', taskRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+
+module.exports = app; // ✅ Export for Vercel to handle
